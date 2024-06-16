@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Comic Scraper</title>
+	<style>
+		body, html {
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: #f0f0f0;
+			flex-direction: column;
+		}
+		.btn {
+			margin-top: 20px;
+			padding: 10px 20px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<img id="comic" alt="image.png">
+	<button class="btn">Random comic</button>
+
+	<script>
+		randomComic();
+		document.getElementById('button').addEventListener('click', randomComic);
+
+		function randomComic() {
+			const comicID = randomNum();
+			const url = 'https://qwantz.com/comics/comic2-' + comicID + '.png';
+
+			const img = document.getElementById('comic');
+
+			img.onerror = null;
+			img.onload = null;
+
+			img.onerror = () => randomComic();
+			img.onload = () => document.getElementById('link').innerText = url;
+
+			img.src = url;
+		}
+
+		function randomNum() {
+			return (Math.floor(Math.random() * 4202) + 2).toString().padStart(2, '0');
+		}
+	</script>
+</body>
+</html>
